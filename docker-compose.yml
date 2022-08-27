@@ -1,0 +1,42 @@
+version: '3.3'
+
+services:
+  db:
+    image: mariadb
+    environment:
+      - MYSQL_ROOT_PASSWORD=alex
+      - MYSQL_USER=alex
+      - MYSQL_PASSWORD=alex
+      - MYSQL_DATABASE=alex
+    ports:
+      - "3306:3306"
+    volumes:
+      - db-persistance:/var/lib/mysql
+
+  db_admin:
+    image: adminer:latest
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+
+  alex_backend:
+    build: .
+    environment:
+      - PYTHON_ENVIRONMENT=local
+    entrypoint: /start.sh
+    command: python3 /code/manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./src:/code
+      - ./poetry.lock:/poetry.lock
+      - ./pyproject.toml:/pyproject.toml
+      - ../ebooks:/ebooks
+    ports:
+      - "8000:8000"
+    links:
+      - db:db
+    depends_on:
+      - db
+
+volumes:
+  db-persistance:

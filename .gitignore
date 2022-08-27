@@ -86,4 +86,3 @@ __pycache__/
 local_settings.py
 .idea/
 
-/src/invisible_backend/environments/.env_local
