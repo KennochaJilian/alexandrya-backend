@@ -25,7 +25,7 @@ services:
     environment:
       - PYTHON_ENVIRONMENT=local
     entrypoint: /start.sh
-    command: python3 /code/manage.py runserver 0.0.0.0:8000
+    command: python manage.py runserver 0.0.0.0:8000
     volumes:
       - ./src:/code
       - ./poetry.lock:/poetry.lock
