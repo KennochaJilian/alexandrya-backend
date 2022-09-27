@@ -8,7 +8,7 @@ from book.serializers.book_serializer import ListBookSerializer
 
 
 class BookViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
-    queryset = Book.objects.all()
+    queryset = Book.objects.first()
     serializer_class = ListBookSerializer
 
     @action(methods=['GET'], detail=False, url_path='extract')
