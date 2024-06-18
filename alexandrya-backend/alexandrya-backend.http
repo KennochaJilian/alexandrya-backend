@@ -1,0 +1,6 @@
+@alexandrya_backend_HostAddress = http://localhost:5063
+
+GET {{alexandrya_backend_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
