@@ -1,0 +1,29 @@
+trigger:
+  - master
+  - develop
+
+pool:
+  name: 'Aquarius VPS Agent'
+
+
+variables:
+  ImageName: 'alexandrya-api'
+  ${{ if eq( variables['Build.SourceBranchName'], 'master' ) }}:
+    buildVersion: 'latest'
+  ${{ if eq( variables['Build.SourceBranchName'], 'develop' ) }}:
+    buildVersion: 'test'
+
+stages:
+  - stage: Build
+    displayName: Build image
+    jobs:
+      - job: Build
+        displayName: Build and push Docker image
+        steps:
+          - task: Docker@2
+            inputs:
+              containerRegistry: 'DockerHub'
+              repository: 'codinaaranxa/alexandrya-api'
+              command: 'buildAndPush'
+              Dockerfile: '**/Dockerfile'
+              tags: $(buildVersion)
