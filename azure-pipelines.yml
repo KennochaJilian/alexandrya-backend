@@ -8,7 +8,7 @@ pool:
 
 variables:
   ImageName: 'alexandrya-api'
-  ${{ if eq( variables['Build.SourceBranchName'], 'main' ) }}:
+  ${{ if eq( variables['Build.SourceBranchName'], 'master' ) }}:
     buildVersion: 'latest'
   ${{ if eq( variables['Build.SourceBranchName'], 'develop' ) }}:
     buildVersion: 'test'
